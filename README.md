@@ -1,13 +1,15 @@
 # 🚗 AI Car Damage Assessment Tool
 
-![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-%23FF4B4B.svg?style=for-the-badge&logo=Streamlit&logoColor=white)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-
 **An intelligent end-to-end computer vision system for automated vehicle damage inspection.**
 
-![App Demo](app_demo.png)
-*(Screenshot of the Streamlit interface detecting Frontal Damage with Severe intensity)*
+## 📸 Model Capabilities
+
+The system automatically triages vehicle images into three categories of analysis.
+
+| **Frontal Damage** | **Rear Damage** | **No Damage** |
+|:---:|:---:|:---:|
+| ![Front Crush](demo_front_crush.png) | ![Rear Break](demo_rear_break.png) | ![Normal Car](demo_normal.png) |
+| *Detected: Front | Severe* | *Detected: Rear | Moderate* | *Detected: Whole (Undamaged)* |
 
 ## 📌 Project Overview
 
@@ -27,6 +29,28 @@ The system is modularized into a web interface and an inference engine:
     * **Image Preprocessing:** Resizing (224x224), Center Cropping, and Normalization.
     * **Model Loading:** Loads the consolidated weights (`gate`, `location`, `severity`) from `car_damage_pred_model.pth`.
     * **Inference:** Runs the image through the respective model heads based on the pipeline logic.
+
+### Image Processing Pipeline
+To ensure prediction consistency, images undergo the following transformations before inference:
+1.  **Resize**: Images are scaled to $224 \times 224$ pixels.
+2.  **Normalize**: Standard ImageNet normalization is applied with $\mu=[0.485, 0.456, 0.406]$ and $\sigma=[0.229, 0.224, 0.225]$.
+3.  **Tensor Conversion**: Data is converted into PyTorch tensors and batched for the model.
+
+## 📊 Supported Damage Classes
+The model is trained to recognize and categorize vehicle images into one of the following **6 classes**:
+
+* **Front Breakage**: Identifies structural snaps or cracks in the front bumper, grille, or headlights.
+* **Front Crushed**: Detects severe impact deformation or "crunched" areas at the front of the vehicle.
+* **Front Normal**: Confirms the front section of the vehicle is intact and free of visible damage.
+* **Rear Breakage**: Identifies cracks, snaps, or fragments missing from the rear bumper or taillights.
+* **Rear Crushed**: Detects significant collision impact or caved-in sections at the rear.
+* **Rear Normal**: Confirms the rear section of the vehicle is in its original, undamaged state.
+
+## 📂 File Structure
+
+* **`app.py`**: The main Streamlit frontend for file uploads and displaying classification results.
+* **`model_helper.py`**: Contains the `CarClassifierRestNet` class definition and the logic for pre-processing and prediction.
+* **`car_damage_pred_model.pth`**: The saved state dictionary of the trained ResNet-50 model.
 
 ## 🚀 How to Run
 
@@ -58,4 +82,4 @@ The system is modularized into a web interface and an inference engine:
 * `model_helper.py`: Model architecture and inference logic.
 * `car_damage_pred_model.pth`: Pre-trained PyTorch model weights.
 * `requirements.txt`: Python dependencies.
-* `app_demo.png`: Screenshot of the running application.
+* `demo_*.png`: Demo
