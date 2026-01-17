@@ -6,10 +6,11 @@
 
 The system automatically triages vehicle images into three categories of analysis.
 
-| **Frontal Damage** | **Rear Damage** | **No Damage** |
-|:---:|:---:|:---:|
-| ![Front Crush](predicted%20images/front_crush.png) | ![Rear Crush](predicted%20images/rear_crush.png) | ![Normal Car](predicted%20images/normal.png) |
-| *Detected: Front | Severe* | *Detected: Rear | Moderate* | *Detected: Whole (Undamaged)* |
+ **Frontal Damage** 
+
+![Front Crush](front_crush.png) 
+
+*Detected: Front  
 
 ## 📌 Project Overview
 
